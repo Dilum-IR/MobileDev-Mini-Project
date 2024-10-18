@@ -9,6 +9,19 @@ Biomark is a research organization that collects personal data from volunteers t
 - **Encryption**: Bcrypt & SCRYPT for securing sensitive data
 - **Development Environment**: Android Studio
 
+## 💠 User Interfaces 
+<div style="display: flex; justify-content: space-between; padding:'15px'">
+<img src="./UI-Images/7.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/8.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/1.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/2.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/3.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/4.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/5.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/6.png" alt="Home Screen" width="300" />
+<img src="./UI-Images/9.png" alt="Home Screen" width="300" />
+</div>
+
 ## 🌟 **Key Features**
 
 ### 1. **User Registration and Login**
