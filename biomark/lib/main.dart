@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       color: KColors.white,
-      title: 'Food App',
+      title: 'Biomark',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: KColors.appPrimary,
