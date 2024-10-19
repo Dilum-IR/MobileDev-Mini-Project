@@ -57,3 +57,11 @@ List<SliderModel> banners = [
 
 ];
 
+List <String> questions = [
+  "What was your primary school?",
+  "What is your favorite book?",
+  "What was the model of your car?",
+  "Where did you go on your vacation?",
+  "In what city were you born?",
+  "What was your first job?"
+];

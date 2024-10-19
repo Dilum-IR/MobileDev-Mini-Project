@@ -127,13 +127,7 @@ class AppInputStyle {
     Icons.visibility_off,
     color: Colors.grey,
   );
-  static Icon dropDownIcon = const Icon(
-    Icons.keyboard_arrow_down_rounded,
-    size: 30,
-    color: Colors.orangeAccent,
-  );
-
   // padding
   static EdgeInsets contentPadding =
-      EdgeInsets.symmetric(horizontal: 20, vertical: 15);
+      const EdgeInsets.symmetric(horizontal: 20, vertical: 15);
 }

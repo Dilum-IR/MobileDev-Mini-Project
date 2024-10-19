@@ -3,6 +3,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
+import 'colors/colors.dart';
 import 'constants.dart';
 import 'popup_warning.dart';
 
@@ -186,7 +187,7 @@ class _NoConnectionState extends State<NoConnection>
                           width: size.width / 2.8,
                           height: 45,
                           decoration: BoxDecoration(
-                            color: Colors.orange,
+                            color: KColors.primaryColor,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Center(

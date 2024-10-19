@@ -16,6 +16,7 @@ class UserModel {
   late String friendName;
   late String petName;
   late String ownQuestion;
+  late String ownAnswer;
 
   late String tob; // time of birth
   late String lob; // location of birth
@@ -37,6 +38,7 @@ class UserModel {
     required this.friendName,
     required this.petName,
     required this.ownQuestion,
+    required this.ownAnswer,
   });
 
   Map<String, dynamic> toJson() {
@@ -50,6 +52,7 @@ class UserModel {
       "friendName": friendName,
       "petName": petName,
       "ownQuestion": ownQuestion,
+      "ownAnswer":ownAnswer,
       "addMore": false
     };
   }
@@ -83,24 +86,25 @@ class UserModel {
   //All information include DAO
   UserModel.myInfo(
       {required this.id,
-      required this.name,
-      required this.email,
-      required this.userType,
-      required this.dob,
-      required this.motherName,
-      required this.friendName,
-      required this.petName,
-      required this.ownQuestion,
-      required this.tob,
-      required this.lob,
-      required this.bloodGroup,
-      required this.sex,
-      required this.height,
-      required this.ethnicity,
-      required this.eyeColour,
-      required this.phone,
-      required this.image_url,
-      required this.addMore});
+        required this.name,
+        required this.email,
+        required this.userType,
+        required this.dob,
+        required this.motherName,
+        required this.friendName,
+        required this.petName,
+        required this.ownQuestion,
+        required this.ownAnswer,
+        required this.tob,
+        required this.lob,
+        required this.bloodGroup,
+        required this.sex,
+        required this.height,
+        required this.ethnicity,
+        required this.eyeColour,
+        required this.phone,
+        required this.image_url,
+        required this.addMore});
 
   factory UserModel.fromSnapshot(DocumentSnapshot doc) {
     final data = doc.data() as Map<String, dynamic>;
@@ -116,6 +120,7 @@ class UserModel {
       friendName: data['friendName'] ?? '',
       petName: data['petName'] ?? '',
       ownQuestion: data['ownQuestion'] ?? '',
+      ownAnswer: data['ownAnswer'] ?? '',
       tob: data['tob'] ?? '',
       lob: data['lob'] ?? '',
       bloodGroup: data['bloodGroup'] ?? '',

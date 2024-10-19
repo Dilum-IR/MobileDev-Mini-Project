@@ -20,7 +20,6 @@ class UserSignupStep2 extends StatefulWidget {
 }
 
 class UserSignupStep2State extends State<UserSignupStep2> {
-
   @override
   Widget build(BuildContext context) {
     var height = KDeviceUtils.getHeight(context);
@@ -238,8 +237,54 @@ class UserSignupStep2State extends State<UserSignupStep2> {
                       const SizedBox(
                         height: 5,
                       ),
+                      DropdownButtonFormField<String>(
+                        value: controller.yourQuestionController.text,
+                        decoration: InputDecoration(
+                          border: AppInputStyle.outlineInputBorder,
+                          focusedBorder: AppInputStyle.outlineInputBorder,
+                          filled: validAnswer ? true : false,
+                          fillColor: AppInputStyle.validFillColor,
+                          hintText:
+                              "Select your recover question", // Adjust hint if needed
+                          labelText: "Select your recover question",
+                          hintStyle: AppInputStyle.hintTextStyle,
+                          labelStyle: AppInputStyle.labelTextStyle,
+                          floatingLabelStyle: AppInputStyle.floatingLabelStyle,
+                          prefixIcon: AppInputStyle.quaIcon,
+                          errorBorder: AppInputStyle.InputErrorBorder,
+                        ),
+                        menuMaxHeight: 222,
+                        items: questions
+                            .map<DropdownMenuItem<String>>((String queValue) {
+                          return DropdownMenuItem<String>(
+                            value: queValue,
+                            child: SizedBox(
+                              width: 258,
+                              child: Text(
+                                queValue,
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w400),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          );
+                        }).toList(),
+                        dropdownColor: KColors.thirdPartyColor,
+                        onChanged: (String? newValue) {
+                          controller.yourQuestionController.text = newValue!;
+                          if (mounted) {
+                            setState(() {
+                              validAnswer = true;
+                            });
+                          }
+                        },
+                        hint: const Text("Select your recover question"),
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
                       TextField(
-                        controller: controller.yourQuestionController,
+                        controller: controller.quesAnswerController,
                         onChanged: (name) {
                           _QuesError = onQuestionChanged(name);
 
@@ -258,8 +303,8 @@ class UserSignupStep2State extends State<UserSignupStep2> {
                           contentPadding: AppInputStyle.contentPadding,
                           filled: validQuestion ? true : false,
                           fillColor: AppInputStyle.validFillColor,
-                          hintText: "What is your name? (Use a question mark)",
-                          labelText: "Your recover question",
+                          hintText: "Select recover question answer",
+                          labelText: "Your recover Answer",
                           hintStyle: AppInputStyle.hintTextStyle,
                           labelStyle: AppInputStyle.labelTextStyle,
                           floatingLabelStyle: AppInputStyle.floatingLabelStyle,
@@ -289,14 +334,11 @@ class UserSignupStep2State extends State<UserSignupStep2> {
                         onPressed: validInputData() && !istap
                             ? () {
                                 registerUser();
-                                setState(() {
-                                  istap = !istap;
-                                });
-                                // Future.delayed(const Duration(seconds: 5), () {
-                                //   setState(() {
-                                //     istap = !istap;
-                                //   });
-                                // });
+                                if (mounted) {
+                                  setState(() {
+                                    istap = !istap;
+                                  });
+                                }
                               }
                             : null,
                         color: KColors.secondaryColor,
@@ -337,7 +379,7 @@ class UserSignupStep2State extends State<UserSignupStep2> {
   }
 
   final RegExp nameRegex = RegExp(r'^[a-zA-Z]+(?:\s[a-zA-Z]+)*$');
-  final RegExp quesRegex = RegExp(r"^[a-zA-Z\s]+[\w\s,':-]*\?$");
+  // final RegExp quesRegex = RegExp(r"^[a-zA-Z\s]+[\w\s,':-]*\?$");
 
   bool validInput = false;
   bool istap = false;
@@ -354,7 +396,21 @@ class UserSignupStep2State extends State<UserSignupStep2> {
   bool validQuestion = false;
   String _QuesError = '';
 
+  bool validAnswer = false;
+
   bool validDate = false;
+
+  @override
+  void initState() {
+    controller.yourQuestionController.text = 'What was your primary school?';
+    isValidInputs();
+    super.initState();
+  }
+
+  @override
+  dispose() {
+    super.dispose();
+  }
 
   String onNameChanged(String userName) {
     final name = userName.trim().toString();
@@ -366,12 +422,13 @@ class UserSignupStep2State extends State<UserSignupStep2> {
       return "";
     }
   }
+
   String onQuestionChanged(String userName) {
     final name = userName.trim().toString();
     if (name.isEmpty) {
-      return "* Question is required.";
-    } else if (!quesRegex.hasMatch(name) || name.length < 5) {
-      return "* Question is invalid.";
+      return "* Answer is required.";
+    } else if (!nameRegex.hasMatch(name) || name.length < 5) {
+      return "* Answer is invalid.";
     } else {
       return "";
     }
@@ -385,6 +442,27 @@ class UserSignupStep2State extends State<UserSignupStep2> {
       return true;
     } else {
       return false;
+    }
+  }
+
+  void isValidInputs() {
+    if (controller.dateOfBirthController.text.isNotEmpty) {
+      validDate = true;
+    }
+    if (onNameChanged(controller.motherMedianController.text) == "") {
+      validName = true;
+    }
+    if (onNameChanged(controller.friendNameController.text) == "") {
+      validFriendName = true;
+    }
+    if (onNameChanged(controller.petNameController.text) == "") {
+      validPetName = true;
+    }
+    if (onQuestionChanged(controller.quesAnswerController.text) == "") {
+      validQuestion = true;
+    }
+    if (mounted) {
+      setState(() {});
     }
   }
 
@@ -410,7 +488,9 @@ class UserSignupStep2State extends State<UserSignupStep2> {
       }
       validDate = true;
 
-      setState(() {});
+      if (mounted) {
+        setState(() {});
+      }
     }
   }
 
@@ -431,10 +511,8 @@ class UserSignupStep2State extends State<UserSignupStep2> {
     final bool res = await controller.registerAsUser();
 
     istap = res;
-    if(mounted){
-      setState(() {
-      });
+    if (mounted) {
+      setState(() {});
     }
-
   }
 }

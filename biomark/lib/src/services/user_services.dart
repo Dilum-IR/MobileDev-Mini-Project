@@ -64,8 +64,7 @@ class CrudServices {
   Future<List<UserModel>> recoverUserOne(
       {required String name,
       required String dob,
-      required String petName,
-      required String ownQue}) async {
+      required String petName}) async {
     try {
       final sanpshot = await service
           .collection("Users")

@@ -28,6 +28,7 @@ class UserSignUpController extends GetxController {
   TextEditingController friendNameController = TextEditingController();
   TextEditingController petNameController = TextEditingController();
   TextEditingController yourQuestionController = TextEditingController();
+  TextEditingController quesAnswerController = TextEditingController();
 
   // for change email
   TextEditingController newEmailController = TextEditingController();
@@ -48,13 +49,13 @@ class UserSignUpController extends GetxController {
     motherMedianController.clear();
     friendNameController.clear();
     petNameController.clear();
-    yourQuestionController.clear();
 
     newEmailController.clear();
     currentPasswordController.clear();
 
     currentChangePasswordController.clear();
     currentChangeNewPassController.clear();
+    quesAnswerController.clear();
   }
 
   Future<bool> registerAsUser() async {
@@ -68,6 +69,9 @@ class UserSignUpController extends GetxController {
       String hashQuestion = BCrypt.hashpw(
           yourQuestionController.text.trim().toString(), BCrypt.gensalt());
 
+      String hashAnswer = BCrypt.hashpw(
+          quesAnswerController.text.trim().toString(), BCrypt.gensalt());
+
       final newUser = UserModel.register(
         email: emailController.text.trim().toString(),
         id: userCredential.user!.uid,
@@ -78,6 +82,7 @@ class UserSignUpController extends GetxController {
         friendName: friendNameController.text.trim().toString(),
         petName: petNameController.text.trim().toString(),
         ownQuestion: hashQuestion,
+        ownAnswer:hashAnswer,
       );
 
       await authController
@@ -92,7 +97,7 @@ class UserSignUpController extends GetxController {
 
       removeData();
       Get.offAll(
-        () => const UserSignin(),
+            () => const UserSignin(),
         transition: Transition.rightToLeft,
         duration: const Duration(milliseconds: 500),
       );
@@ -239,6 +244,8 @@ class UserSignUpController extends GetxController {
     passwordController.dispose();
     re_passwordController.dispose();
     newEmailController.dispose();
+    currentPasswordController.dispose();
+    quesAnswerController.dispose();
     super.dispose();
   }
 }

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
 import '../../../../comman/style/app_input_style.dart';
 import '../../../../utils/colors/colors.dart';
 import '../../../../utils/helper/user_handler.dart';
 import '../../../../utils/popup_warning.dart';
-import '../../../../utils/show_confirm.dart';
-import '../../../controllers/user/shared_auth_user.dart';
 import '../../../controllers/user/user_feature_controller.dart';
 import '../../../controllers/user/user_signup_controller.dart';
 
@@ -166,7 +163,7 @@ class _UpdateSecurityState extends State<UpdateSecurity> {
                             filled: true,
                             fillColor: Colors.white,
                             hintText: AppInputStyle.hintObsureCharacter,
-                            labelText: "Current Password",
+                            labelText: "Your Current Password",
                             hintStyle: AppInputStyle.hintTextStyle,
                             labelStyle: AppInputStyle.labelTextStyle,
                             floatingLabelStyle:

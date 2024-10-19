@@ -156,8 +156,50 @@ class RecoveryAccountState extends State<RecoveryAccount> {
                     const SizedBox(
                       height: 25,
                     ),
+                    DropdownButtonFormField<String>(
+                      value: controller.recoveryOwnQController.text,
+                      decoration: InputDecoration(
+                        border: AppInputStyle.outlineInputBorder,
+                        focusedBorder: AppInputStyle.outlineInputBorder,
+                        // contentPadding: AppInputStyle.contentPadding,
+                        filled: true,
+                        fillColor: KColors.white,
+                        hintText: "Select your recover question", // Adjust hint if needed
+                        labelText: "Select your recover question",
+                        hintStyle: AppInputStyle.hintTextStyle,
+                        labelStyle: AppInputStyle.labelTextStyle,
+                        floatingLabelStyle:
+                        AppInputStyle.floatingLabelStyle,
+                        prefixIcon: AppInputStyle.quaIcon,
+                        errorBorder: AppInputStyle.InputErrorBorder,
+                      ),
+                      menuMaxHeight: 222,
+                      items: questions.map<DropdownMenuItem<String>>((String value) {
+                        return DropdownMenuItem<String>(
+                          value: value,
+                          child: SizedBox(
+                            width: 258,
+                            child: Text(value
+                              ,style: const TextStyle(
+                                  fontWeight: FontWeight.w400
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                      dropdownColor: KColors.thirdPartyColor,
+                      onChanged: (String? newValue) {
+                        controller.recoveryOwnQController.text = newValue!;
+                        if (mounted) {
+                          setState(() {});
+                        }
+                      },
+                      hint: const Text("Select your recover question"),
+                    ),
+                    const SizedBox(height: 15,),
                     TextField(
-                      controller: controller.recoveryOwnQController,
+                      controller: controller.recoveryOwnAnswerController,
                       onChanged: (name) {
                         _QuesError = onQuestionChanged(name);
 
@@ -176,8 +218,8 @@ class RecoveryAccountState extends State<RecoveryAccount> {
                         contentPadding: AppInputStyle.contentPadding,
                         filled: validQuestion ? true : false,
                         fillColor: AppInputStyle.validFillColor,
-                        hintText: "What is your name?",
-                        labelText: "Your recover question",
+                        hintText: "Recover question answer",
+                        labelText: "Your recover Answer",
                         hintStyle: AppInputStyle.hintTextStyle,
                         labelStyle: AppInputStyle.labelTextStyle,
                         floatingLabelStyle: AppInputStyle.floatingLabelStyle,
@@ -254,7 +296,7 @@ class RecoveryAccountState extends State<RecoveryAccount> {
                         }
 
                         // recovery logic
-                       final UserModel? findUser = await controller.recoveryAccount();
+                        final UserModel? findUser = await controller.recoveryAccount();
 
                         if(findUser != null){
                           setState(() {
@@ -326,6 +368,11 @@ class RecoveryAccountState extends State<RecoveryAccount> {
   String _QuesError = '';
 
   @override
+  void initState() {
+    controller.recoveryOwnQController.text = 'What was your primary school?';
+    super.initState();
+  }
+  @override
   void dispose() {
     super.dispose();
   }
@@ -344,9 +391,9 @@ class RecoveryAccountState extends State<RecoveryAccount> {
   String onQuestionChanged(String userName) {
     final name = userName.trim().toString();
     if (name.isEmpty) {
-      return "* Question is required.";
+      return "* Answer is required.";
     } else if (name.length < 5) {
-      return "* Question is invalid.";
+      return "* Answer is invalid.";
     } else {
       return "";
     }

@@ -29,6 +29,7 @@ class UserFeatureController extends GetxController {
   TextEditingController recoveryDobController = TextEditingController();
   TextEditingController recoveryPetNameController = TextEditingController();
   TextEditingController recoveryOwnQController = TextEditingController();
+  TextEditingController recoveryOwnAnswerController = TextEditingController();
 
   TextEditingController recoveryEmailController = TextEditingController();
   TextEditingController recoveryPasswordController = TextEditingController();
@@ -50,11 +51,12 @@ class UserFeatureController extends GetxController {
 
       await crudController
           .update(
-            collection: "Users",
-            data: aboutMeData.toJsonAboutMe(),
-            id: UserHandler.id,
-          )
-          .then((value) => Get.back());
+        collection: "Users",
+        data: aboutMeData.toJsonAboutMe(),
+        id: UserHandler.id,
+      )
+          .then((value) => Get.back()
+      );
 
       PopupWarning.Warning(
         title: "Update Successful 🎉",
@@ -104,7 +106,7 @@ class UserFeatureController extends GetxController {
       Get.offAll(
         transition: Transition.cupertino,
         duration: const Duration(milliseconds: 500),
-        () => const UserSignin(),
+            () => const UserSignin(),
       );
     } catch (e) {}
   }
@@ -114,8 +116,7 @@ class UserFeatureController extends GetxController {
       final List<UserModel> findUser = await crudController.recoverUserOne(
           name: recoveryNameController.text.trim(),
           dob: recoveryDobController.text.trim(),
-          petName: recoveryPetNameController.text.trim(),
-          ownQue: recoveryOwnQController.text.trim());
+          petName: recoveryPetNameController.text.trim());
 
       if (findUser.isEmpty) {
         PopupWarning.Warning(
@@ -127,7 +128,12 @@ class UserFeatureController extends GetxController {
 
       bool isQueCorrect = BCrypt.checkpw(
           recoveryOwnQController.text.trim(), findUser[0].ownQuestion);
-      if (isQueCorrect) {
+
+      bool isAnsCorrect = BCrypt.checkpw(
+          recoveryOwnAnswerController.text.trim(), findUser[0].ownAnswer);
+
+
+      if (isQueCorrect && isAnsCorrect) {
         return findUser[0];
       } else {
         PopupWarning.Warning(
@@ -162,6 +168,7 @@ class UserFeatureController extends GetxController {
         friendName: user.friendName,
         petName: user.petName,
         ownQuestion: user.ownQuestion,
+        ownAnswer: user.ownAnswer,
       );
 
       // add data to the database
