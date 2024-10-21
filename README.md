@@ -63,8 +63,5 @@ Biomark is a research organization that collects personal data from volunteers t
 ## 📈 **Conclusion**
 This mobile application for Biomark successfully addresses all core requirements, from secure user registration and profile management to account recovery and data deletion. Built with Flutter and Firebase, the app ensures a smooth, secure, and scalable experience for volunteers. Future developments may include features such as biometric authentication and enhanced UI elements like animations.
 
-## 📹 **Video Demonstration**
-- [Watch the Video Demo](https://github.com/Dilum-IR/MobileDev-Mini-Project)
-
 ## 📁 **Repository**
 - [GitHub Repository](https://github.com/Dilum-IR/MobileDev-Mini-Project)
